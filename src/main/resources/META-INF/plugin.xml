@@ -1,0 +1,55 @@
+<idea-plugin>
+    <id>com.lilyanmuller.glassislands</id>
+    <name>Glass Islands</name>
+    <vendor>Lilyan Muller</vendor>
+
+    <description><![CDATA[
+    Gives Rider on macOS a translucent, Apple-like look built from real AppKit materials, rendered by the macOS
+    compositor: no screenshots, no painted blur, no theme swap.
+    <ul>
+      <li>The window and the Islands panes are frosted <code>NSVisualEffectView</code> material, with soft shadows
+          and a specular rim; the editor stays the most opaque layer for readability.</li>
+      <li>Selected and hovered toolbar buttons, tool window buttons and editor tabs become Liquid Glass pills
+          (<code>NSGlassEffectView</code>, macOS 26 and later; frosted pills on earlier versions).</li>
+      <li>Popups and menus use the macOS menu material, floating tool windows the popover material, and detached
+          editor windows get the same islands as the main window. Dialogs stay opaque, as on macOS.</li>
+      <li>Follows the Rider theme (dark or light) and the macOS accessibility settings: Reduce Transparency turns
+          it off, Increase Contrast makes every layer more opaque and outlined. Presentation Mode stays opaque.</li>
+      <li>Every setting applies live: <b>Settings | Appearance &amp; Behavior | Glass Islands</b>, or
+          <b>View | Appearance | Glass Islands</b> to toggle it.</li>
+    </ul>
+    Requires an Islands theme. macOS only (Apple Silicon and Intel); on other systems the plugin stays inactive.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.rider</depends>
+
+    <resource-bundle>messages.LiquidGlassBundle</resource-bundle>
+
+    <applicationListeners>
+        <listener class="com.lilyanmuller.glassislands.lifecycle.GlassPluginListener"
+                  topic="com.intellij.ide.plugins.DynamicPluginListener"/>
+    </applicationListeners>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="com.lilyanmuller.glassislands.lifecycle.GlassStartupActivity"/>
+        <applicationConfigurable
+                parentId="appearance"
+                id="com.lilyanmuller.glassislands.settings"
+                key="plugin.name"
+                instance="com.lilyanmuller.glassislands.ui.LiquidGlassConfigurable"/>
+        <notificationGroup id="Glass Islands" displayType="BALLOON" key="plugin.name"/>
+        <notificationGroup id="Glass Islands Setup" displayType="STICKY_BALLOON" key="notification.group.setup"/>
+    </extensions>
+
+    <actions resource-bundle="messages.LiquidGlassBundle">
+        <!-- View | Appearance | Glass Islands; also in Find Action and assignable to a shortcut. -->
+        <action id="GlassIslands.Toggle" class="com.lilyanmuller.glassislands.actions.ToggleGlassIslandsAction">
+            <add-to-group group-id="UIToggleActions" anchor="last"/>
+        </action>
+        <!-- Help | Diagnostic Tools | Glass Islands Debug Information -->
+        <action id="GlassIslands.DebugInformation" class="com.lilyanmuller.glassislands.actions.ShowDebugInformationAction">
+            <add-to-group group-id="HelpDiagnosticTools" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
