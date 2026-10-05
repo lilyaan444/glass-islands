@@ -21,7 +21,7 @@ kotlin {
 /** The local Rider to compile, test and run against: -PriderLocalPath=..., else the usual install locations. */
 val riderLocalPath: String = providers.gradleProperty("riderLocalPath").orNull
     ?: listOf("${System.getProperty("user.home")}/Applications/Rider.app", "/Applications/Rider.app").firstOrNull { file(it).exists() }
-    ?: error("Rider 2026.2 not found: pass -PriderLocalPath=/path/to/Rider.app")
+    ?: error("Rider not found: pass -PriderLocalPath=/path/to/Rider.app")
 
 repositories {
     mavenCentral()
@@ -35,6 +35,8 @@ dependencies {
         local(riderLocalPath)
         pluginVerifier()
     }
+    // Rider 2026.3 ships the JetBrains annotations in a jar the Gradle plugin does not put on the compile classpath.
+    compileOnly("org.jetbrains:annotations:26.0.2")
     testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -50,6 +52,10 @@ intellijPlatform {
     instrumentCode = false
     pluginConfiguration {
         changeNotes = """
+            <b>0.1.2</b>
+            <ul>
+              <li>Supports Rider 2026.3.</li>
+            </ul>
             <b>0.1.1</b>
             <ul>
               <li>No longer relies on platform API that is removed or deprecated in the 2026.3 platform.</li>
@@ -65,7 +71,7 @@ intellijPlatform {
         """.trimIndent()
         ideaVersion {
             sinceBuild = "262.10315"
-            untilBuild = "262.*"
+            untilBuild = "263.*"
         }
     }
 }
