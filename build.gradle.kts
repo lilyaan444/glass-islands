@@ -50,6 +50,11 @@ intellijPlatform {
     instrumentCode = false
     pluginConfiguration {
         changeNotes = """
+            <b>0.1.1</b>
+            <ul>
+              <li>No longer relies on platform API that is removed or deprecated in the 2026.3 platform.</li>
+            </ul>
+            <b>0.1.0</b>
             <ul>
               <li>Frosted window and Islands panes, Liquid Glass buttons and tabs (macOS 26+).</li>
               <li>Popups, menus, floating tool windows and detached editor windows share the glass.</li>

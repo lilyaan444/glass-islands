@@ -7,7 +7,9 @@ import org.jetbrains.annotations.PropertyKey
 private const val BUNDLE = "messages.LiquidGlassBundle"
 
 /** Every user-visible text of the plugin. */
-internal object LiquidGlassBundle : DynamicBundle(BUNDLE) {
+internal object LiquidGlassBundle {
+    private val bundle = DynamicBundle(LiquidGlassBundle::class.java, BUNDLE)
+
     @Nls
-    fun message(@PropertyKey(resourceBundle = BUNDLE) key: String, vararg params: Any): String = getMessage(key, *params)
+    fun message(@PropertyKey(resourceBundle = BUNDLE) key: String, vararg params: Any): String = bundle.getMessage(key, *params)
 }

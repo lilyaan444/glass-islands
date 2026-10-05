@@ -224,8 +224,18 @@ object GlassShapeLocator {
         val bounds = SwingUtilities.convertRectangle(button.parent, button.bounds, window)
         (button as? javax.swing.JComponent)?.insets?.let { JBInsets.removeFrom(bounds, it) }
         val left = isOnLeftStripe(button)
-        JBInsets.removeFrom(bounds, JBUI.CurrentTheme.Toolbar.stripeToolbarButtonIconPadding(left, stripeShowsNames()))
+        JBInsets.removeFrom(bounds, stripeIconPadding(left, stripeShowsNames()))
         return GlassShape(kind, bounds, radius, keyOf(button, kind))
+    }
+
+    /**
+     * The theme value behind JBUI.CurrentTheme.Toolbar.stripeToolbarButtonIconPadding, read by its UI key: that
+     * accessor is gone in the 2026.3 platform, the key and its default (5) are what SquareStripeButtonLook uses.
+     */
+    private fun stripeIconPadding(left: Boolean, withNames: Boolean): JBInsets {
+        val side = if (left) "left" else "right"
+        val names = if (withNames) "WithName" else ""
+        return JBUI.insets("StripeToolbar.Button.${side}StripeIcon$names.padding", JBUI.insets(5))
     }
 
     private fun isOnLeftStripe(button: Component): Boolean {
