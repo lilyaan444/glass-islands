@@ -1,5 +1,11 @@
 # Glass Islands
 
+[![JetBrains Marketplace](https://img.shields.io/jetbrains/plugin/v/34534-glass-islands)](https://plugins.jetbrains.com/plugin/34534-glass-islands)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/34534-glass-islands)](https://plugins.jetbrains.com/plugin/34534-glass-islands)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+![Glass Islands demo](docs/demo.gif)
+
 A JetBrains Rider plugin for macOS that gives the IDE a translucent, Apple-like look built from real AppKit
 materials, rendered by the macOS compositor. No screenshots, no painted blur, no theme swap.
 
@@ -15,6 +21,8 @@ materials, rendered by the macOS compositor. No screenshots, no painted blur, no
   Presentation Mode stays opaque.
 
 Requires Rider 2026.2 (build 262.10315+) with an Islands theme, on macOS 12+ (Apple Silicon or Intel).
+
+![Stock Rider on the left, Glass Islands on the right](docs/before-after.png)
 
 ## Build
 
@@ -41,7 +49,9 @@ The build uses the local Rider 2026.2 found in `~/Applications` or `/Application
 
 ## Install, disable, uninstall
 
-- **Install**: *Settings | Plugins | ⚙ | Install Plugin from Disk…* and pick the zip. No restart needed.
+- **Install**: *Settings | Plugins | Marketplace*, search "Glass Islands", or get it from the
+  [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/34534-glass-islands). To install a local build:
+  *Settings | Plugins | ⚙ | Install Plugin from Disk…* and pick the zip. No restart needed.
 - **Settings**: *Settings | Appearance & Behavior | Glass Islands*. Changes preview live.
 - **Toggle**: *View | Appearance | Glass Islands*, or *Find Action* → "Glass Islands" (assignable to a shortcut).
 - **Disable or uninstall**: *Settings | Plugins*, no restart needed. Rider is restored exactly as it was.
